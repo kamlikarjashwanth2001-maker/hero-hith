@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viranetra – Cyber Defense</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      background: #020818;
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* video fills right half */
+    .hero-video {
+      position: absolute;
+      top: 0; right: -4%;
+      width: 68%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: 0;
+    }
+
+    /* fade left edge of video so it blends into dark bg */
+    .hero-video-fade {
+      position: absolute;
+      top: 0; right: 0;
+      width: 68%;
+      height: 100%;
+      background: linear-gradient(to right, #020818 0%, transparent 30%, transparent 85%, #020818 100%);
+      z-index: 1;
+    }
+    /* fade top and bottom */
+    .hero-video-fade-tb {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, #020818 0%, transparent 8%, transparent 85%, #020818 100%);
+      z-index: 1;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 56px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text .brand {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .logo-text .tagline {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #00d4ff;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #00d4ff; }
+
+    .btn-getstarted {
+      padding: 10px 24px;
+      border: 1.5px solid #fff;
+      border-radius: 30px;
+      background: transparent;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-transform: uppercase;
+    }
+
+    .btn-getstarted:hover {
+      background: #00d4ff;
+      border-color: #00d4ff;
+      color: #020818;
+    }
+
+    /* ── HERO CONTENT ── */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 56px;
+      max-width: 52%;
+      padding-bottom: 80px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: #00d4ff;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow::before {
+      content: '+';
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .hero-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(48px, 5.5vw, 76px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .hero-heading .accent {
+      color: #00d4ff;
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+      margin-top: 20px;
+      margin-bottom: 36px;
+      max-width: 360px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    .btn-primary {
+      padding: 14px 32px;
+      background: #00d4ff;
+      border: none;
+      border-radius: 40px;
+      color: #020818;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-primary:hover {
+      background: #00b8e0;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 28px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 40px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #00d4ff;
+      color: #00d4ff;
+    }
+
+    .play-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .play-icon::after {
+      content: '';
+      border-left: 6px solid currentColor;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      margin-left: 2px;
+    }
+
+    /* ── TRUSTED BY ── */
+    .trusted {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .trusted-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+    }
+
+    .trusted-logos {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+
+    .trusted-logos span {
+      font-size: 16px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .trusted-logos span:hover { color: rgba(255,255,255,0.9); }
+
+    /* Google colors */
+    .logo-google { font-family: 'Barlow', sans-serif; font-weight: 700; }
+    .logo-ms::before { content: '⊞ '; font-size: 14px; }
+    .logo-aws { letter-spacing: -0.5px; }
+    .logo-ibm { letter-spacing: 2px; font-weight: 900; }
+    .logo-oracle { letter-spacing: 0px; }
+
+    /* sparkle decoration */
+    .sparkle {
+      position: absolute;
+      right: 3%;
+      bottom: 12%;
+      width: 28px;
+      height: 28px;
+      z-index: 5;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .hero-content { max-width: 100%; padding: 24px 24px 60px; }
+      .hero-video { width: 100%; right: 0; opacity: 0.3; }
+      .hero-video-fade { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+
+  <!-- VIDEO BG — replace src with your actual video file -->
+  <video class="hero-video" autoplay loop muted playsinline>
+    <source src="globe.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-video-fade"></div>
+  <div class="hero-video-fade-tb"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#" class="logo">
+      <!-- Shield icon SVG inline -->
+      <svg class="logo-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 3L6 9v12c0 8.3 6.4 16.1 15 18 8.6-1.9 15-9.7 15-18V9L21 3z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1.5"/>
+        <path d="M16 21l3.5 3.5L27 17" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="21" cy="19" r="2" fill="#00d4ff" opacity="0.6"/>
+        <path d="M21 10v4M21 24v2" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+      </svg>
+      <div class="logo-text">
+        <span class="brand">VIRANETRA</span>
+        <span class="tagline">Packers in Threat Hunt</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Solutions</a></li>
+      <li><a href="#">Company</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+
+    <button class="btn-getstarted">Get Started</button>
+  </nav>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+    <p class="eyebrow">Welcome to Viranetra Threat Hunt</p>
+
+    <h1 class="hero-heading">
+      Cyber Defense<br/>
+      at the Speed of<br/>
+      <span class="accent">Intelligence</span>
+    </h1>
+
+    <p class="hero-sub">Hunt threats before they become breaches.</p>
+
+    <div class="hero-buttons">
+      <button class="btn-primary">Get Protected</button>
+      <button class="btn-secondary">
+        <span class="play-icon"></span>
+        Watch Demo
+      </button>
+    </div>
+
+    <div class="trusted">
+      <p class="trusted-label">Trusted by Leading Enterprises</p>
+      <div class="trusted-logos">
+        <span class="logo-google">Google</span>
+        <span class="logo-ms">Microsoft</span>
+        <span class="logo-aws">aws</span>
+        <span class="logo-ibm">IBM</span>
+        <span class="logo-oracle">ORACLE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- sparkle -->
+  <svg class="sparkle" viewBox="0 0 28 28" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 0l2.5 11.5L28 14l-11.5 2.5L14 28l-2.5-11.5L0 14l11.5-2.5L14 0z"/>
+  </svg>
+
+</section>
+
+</body>
+</html>
